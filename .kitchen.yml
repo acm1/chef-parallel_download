@@ -1,0 +1,22 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+  data_path: test/shared
+
+platforms:
+  - name: ubuntu-12.04
+    run_list: apt
+  - name: ubuntu-14.04
+    run_list: apt
+
+suites:
+  - name: default
+    run_list:
+      - tests::download
+    attributes:
+      tests:
+        aws_access_key: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+        aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
